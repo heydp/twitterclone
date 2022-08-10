@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+  post "/graphql", to: "graphql#execute"
+
+  
   get 'group/index'
   get 'password_resets/new'
   get 'password_resets/edit'
