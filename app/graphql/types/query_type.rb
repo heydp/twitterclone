@@ -13,5 +13,27 @@ module Types
     def test_field
       "Hello World!"
     end
+
+    field :userss, [Types::UserType], null: false do
+      description "Query to find all users"
+    end
+    field :user_details, Types::UserType, null: false do
+      argument :email, String, required: true
+      argument :password, String, required: true
+    end
+    
+
+
+    def userss
+      return User.all
+    end
+    def user_details(email:, password:)
+      thatuser = User.find_by(email: email)
+      if(thatuser && thatuser.authenticate(password))
+        return thatuser
+      else
+        return null
+      end
+    end
   end
 end
