@@ -14,26 +14,50 @@ module Types
       "Hello World!"
     end
 
-    field :userss, [Types::UserType], null: false do
-      description "Query to find all users"
-    end
+    # field :userss, [Types::UserType], null: false do
+    #   description "Query to find all users"
+    # end
     field :user_details, Types::UserType, null: false do
       argument :email, String, required: true
       argument :password, String, required: true
     end
-    
 
-
-    def userss
-      return User.all
+    field :user_followers, [Types::UserType], null: false do
+      argument :email, String, required: true
     end
+
+
+    # def userss
+    #   return User.all
+    # end
+    # def user_details(email:, password:)
+    #   @thatuser = User.find_by(email: email)
+    #   if(@thatuser && @thatuser.authenticate(password))
+    #       {
+    #         user: @thatuser,
+    #         errors: []
+    #       }
+    #   else
+    #       {
+    #         user: null
+    #         errors:@thatuser.errors.full_messages
+    #       }
+    #   end
+    # end
+
     def user_details(email:, password:)
-      thatuser = User.find_by(email: email)
-      if(thatuser && thatuser.authenticate(password))
-        return thatuser
+      @userdetails = User.find_by(email: email)
+      if(@userdetails && @userdetails.authenticate(password))
+           @userdetails
       else
-        return null
+          null
       end
     end
+
+    def user_followers(email:)
+      @userfollowers = User.find_by(email: email)
+      return @userfollowers.followers.all
+    end
+    
   end
 end
