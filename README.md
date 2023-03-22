@@ -23,6 +23,6 @@ Things you may want to cover:
 
 * ... -->
 
-# Ruby on Rails Tutorial: sample application
+# This is the sample twitter clone application.
 
-This is the sample twitter clone application 
+
